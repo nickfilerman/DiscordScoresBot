@@ -18,7 +18,7 @@ def func(sport, gid='msu', now=False):
   s = soup.find('table', class_='table table-sm border border-secondary')
   s2 = s.find('tbody')
 
-  classList = ['bg-primary']
+  classList = ['bg-primary', 'bg-less-dark']
   if not now:
     classList.append('')
 
