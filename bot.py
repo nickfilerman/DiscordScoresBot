@@ -112,6 +112,10 @@ async def otherScore(message, gid='msu', sport='all'):
   else:
     await message.send('Not a Valid School GID, Check statbroadcast.com/events/all.php')
 
+@bot.command(name='steve')
+async def steve(message):
+  await message.send('No')
+
 @bot.command(name='help')
 async def help(message):
   returnStr = '  score: Gets all recent and ongoing scores for MSU sports, add sport name to get only scores for that sport (example: !score basketball)\n\n'
@@ -120,5 +124,7 @@ async def help(message):
 
   returnStr = returnStr + '  otherScore: Gets all ongoing scores for a given school\'s Sports, add sport name to get only scores for that sport (example: !otherScore msu football)\n'
 
-  returnStr = returnStr + '    school name must be equal to the \'gid\' given by the school\'s relevant statbroadcast page, the list of schools can be found at statbroadcast.com/events/all.php'
+  returnStr = returnStr + '    school name must be equal to the \'gid\' given by the school\'s relevant statbroadcast page, the list of schools can be found at statbroadcast.com/events/all.php\n'
+
+  returnStr = returnStr + '  steve: Says whether or not Steve has made a fieldgoal'
   await message.send('```help:\n' + returnStr + '\n```')
