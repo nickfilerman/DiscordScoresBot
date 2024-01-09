@@ -7,6 +7,12 @@ from bs4 import BeautifulSoup
 import discord
 from discord.ext import commands
 
+channelID = None
+
+def setChannelID(newID):
+  global channelID
+  channelID = newID
+
 def func(sport, gid='msu', now=False):
   currDate = datetime.datetime.now()
   today = str(currDate.month) + '/' + str(currDate.day)
@@ -115,6 +121,11 @@ async def otherScore(message, gid='msu', sport='all'):
 @bot.command(name='steve')
 async def steve(message):
   await message.send('No')
+
+@bot.event
+async def on_message(message):
+  if message.channel.id == channelID and message.author != bot.user and (message.content == '*' or message.content == 'Michigan'):
+    await message.channel.send('*')
 
 @bot.command(name='help')
 async def help(message):
