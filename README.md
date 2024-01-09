@@ -17,8 +17,8 @@ pip install requests
 Place within the GitHub directory 
 ```
 from bot import bot, setChannelID
-setChannelID(desiredChannelID)
 
+setChannelID(desiredChannelID)
 bot.run("TOKEN_GOES_HERE")
 ```
 
