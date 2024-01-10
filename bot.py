@@ -135,7 +135,7 @@ async def help(message):
 
   returnStr = returnStr + '  otherScore: Gets all ongoing scores for a given school\'s Sports, add sport name to get only scores for that sport (example: !otherScore msu football)\n'
 
-  returnStr = returnStr + '    school name must be equal to the \'gid\' given by the school\'s relevant statbroadcast page, the list of schools can be found at statbroadcast.com/events/all.php\n'
+  returnStr = returnStr + '    school name must be equal to the \'gid\' given by the school\'s relevant statbroadcast page, the list of schools can be found at statbroadcast.com/events/all.php\n\n'
 
   returnStr = returnStr + '  steve: Says whether or not Steve has made a fieldgoal'
   await message.send('```help:\n' + returnStr + '\n```')
