@@ -1,22 +1,11 @@
 import requests
-import re
-import datetime
 
 from bs4 import BeautifulSoup
 
 import discord
 from discord.ext import commands
 
-channelID = None
-
-def setChannelID(newID):
-  global channelID
-  channelID = newID
-
-def func(sport, gid='msu', now=False):
-  currDate = datetime.datetime.now()
-  today = str(currDate.month) + '/' + str(currDate.day)
-
+def getScores(sport, gid='msu', now=False):
   r = requests.get('https://statbroadcast.com/events/statmonitr.php?gid=' + gid)
 
   soup = BeautifulSoup(r.content, 'html.parser')
@@ -73,10 +62,12 @@ def prettier(sportDict):
 bot = commands.Bot(command_prefix='!', intents=discord.Intents.all(), help_command=None)
 
 bot.schoolDict = {}
+bot.asteriskChannelID = None
+bot.botChannelID = None
 
 @bot.event
 async def on_ready():
-  bot.channel = bot.get_channel(1184865066290511973)
+  bot.channel = bot.get_channel(bot.botChannelID)
   bot.schoolDict = getSchools()
 
   await bot.channel.send(f'{bot.user.name} is online!')
@@ -90,10 +81,9 @@ async def on_command_error(message, error):
 
   await bot.channel.send(str(error) + '\n\nCommand: ' + message.message.content)
   
-
 @bot.command(name='score') 
 async def score(message, sport='all'):
-  returnStr = prettier(func(sport=sport))
+  returnStr = prettier(getScores(sport=sport))
   if returnStr == '':
     returnStr = 'No Scores Available'
   
@@ -101,7 +91,7 @@ async def score(message, sport='all'):
 
 @bot.command(name='nowScore')
 async def nowScore(message, sport='all'):
-  returnStr = prettier(func(sport=sport, now=True))
+  returnStr = prettier(getScores(sport=sport, now=True))
   if returnStr == '':
     returnStr = 'No Scores Available'
 
@@ -110,7 +100,7 @@ async def nowScore(message, sport='all'):
 @bot.command(name='otherScore')
 async def otherScore(message, gid='msu', sport='all'):
   if gid.lower() in bot.schoolDict:
-    returnStr = prettier(func(sport=sport, gid=gid))
+    returnStr = prettier(getScores(sport=sport, gid=gid))
     if returnStr == '':
       returnStr = 'No Scores Available'
 
@@ -124,18 +114,18 @@ async def steve(message):
 
 @bot.event
 async def on_message(message):
-  if message.channel.id == channelID and message.author != bot.user and (message.content == '*' or message.content == 'Michigan'):
+  if message.channel.id == bot.asteriskChannelID and message.author != bot.user and (message.content == '*' or message.content == 'Michigan'):
     await message.channel.send('*')
 
 @bot.command(name='help')
 async def help(message):
-  returnStr = '  score: Gets all recent and ongoing scores for MSU sports, add sport name to get only scores for that sport (example: !score basketball)\n\n'
+  helpDict = {'score': 'Gets all recent and ongoing scores for MSU sports, add sport name to get only scores for that sport (example: !score basketball)\n\n',
+              'nowScore': 'Gets all ongoing scores for MSU sports, add sport name to get only scores for that sport (example: !nowScore hockey)\n\n',
+              'otherScore': 'Gets all ongoing scores for a given school\'s Sports, add sport name to get only scores for that sport (example: !otherScore msu football)\n    school name must be equal to the \'gid\' given by the school\'s relevant statbroadcast page, the list of schools can be found at statbroadcast.com/events/all.php\n\n',
+              'steve': 'Says whether or not Steve has made a fieldgoal'}
+  
+  returnStr = '```help:\n'
+  for helpCommand, helpDesc in helpDict.items():
+    returnStr += '  ' + helpCommand + ': ' + helpDesc
 
-  returnStr = returnStr + '  nowScore: Gets all ongoing scores for MSU sports, add sport name to get only scores for that sport (example: !nowScore hockey)\n\n'
-
-  returnStr = returnStr + '  otherScore: Gets all ongoing scores for a given school\'s Sports, add sport name to get only scores for that sport (example: !otherScore msu football)\n'
-
-  returnStr = returnStr + '    school name must be equal to the \'gid\' given by the school\'s relevant statbroadcast page, the list of schools can be found at statbroadcast.com/events/all.php\n\n'
-
-  returnStr = returnStr + '  steve: Says whether or not Steve has made a fieldgoal'
-  await message.send('```help:\n' + returnStr + '\n```')
+  await message.send(returnStr + '\n```')
