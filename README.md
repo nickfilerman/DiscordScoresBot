@@ -14,11 +14,11 @@ pip install requests
 
 ## main.py
 
-Place within the GitHub directory 
+Place within the GitHub directory, desiredChannelID is channelID where bot errors and wake-up message will be displayed 
 ```
-from bot import bot, setChannelID
+from bot import bot
 
-setChannelID(desiredChannelID)
+bot.botChannelID = desiredChannelID
 bot.run("TOKEN_GOES_HERE")
 ```
 
