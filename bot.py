@@ -62,7 +62,6 @@ def prettier(sportDict):
 bot = commands.Bot(command_prefix='!', intents=discord.Intents.all(), help_command=None)
 
 bot.schoolDict = {}
-bot.asteriskChannelID = None
 bot.botChannelID = None
 
 @bot.event
@@ -111,11 +110,6 @@ async def otherScore(message, gid='msu', sport='all'):
 @bot.command(name='steve')
 async def steve(message):
   await message.send('No')
-
-@bot.event
-async def on_message(message):
-  if message.channel.id == bot.asteriskChannelID and message.author != bot.user and (message.content == '*' or message.content == 'Michigan'):
-    await message.channel.send('*')
 
 @bot.command(name='help')
 async def help(message):
