@@ -109,7 +109,7 @@ async def otherScore(message, gid='msu', sport='all'):
 
 @bot.command(name='steve')
 async def steve(message):
-  await message.send('No')
+  await message.send('Yes')
 
 @bot.command(name='help')
 async def help(message):
