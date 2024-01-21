@@ -13,7 +13,7 @@ def getScores(sport, gid='msu', now=False):
   s = soup.find('table', class_='table table-sm border border-secondary')
   s2 = s.find('tbody')
 
-  classList = ['bg-primary', 'bg-less-dark']
+  classList = ['bg-primary', 'bg-less-dark', 'text-muted', 'text-double-muted']
   if not now:
     classList.append('')
 
