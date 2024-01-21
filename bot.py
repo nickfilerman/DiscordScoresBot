@@ -73,6 +73,9 @@ async def on_ready():
 
 @bot.event
 async def on_command_error(message, error):
+  if message.message.content[1] == '!':
+    return
+  
   if isinstance(error, commands.CommandNotFound):
     await message.send(str(error))
   else:
