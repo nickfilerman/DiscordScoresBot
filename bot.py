@@ -24,7 +24,7 @@ def getScores(sport, gid='msu', now=False):
     s4 = row.find_all('td')
 
     if (sport.lower() in s4[2].text.lower() or sport == 'all'):
-      returnStr = s4[0].text + ' - ' +  s4[1].text.replace('\t', '').replace('\n', ' ').replace('FINAL', 'Final').replace('  -', ' -').replace('-  ', '- ').replace('--', '-').replace('  ', ' ')
+      returnStr = s4[0].text + ' - ' +  s4[1].text.replace('\t', '').replace('\n', ' ').replace('  ', ' ').replace('FINAL', 'Final').replace('  -', ' -').replace('-  ', '- ').replace('--', '-')
       returnStr = returnStr + '\n'
 
       if s4[2].text.split('\n')[2] in sportDict:
