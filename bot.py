@@ -52,7 +52,7 @@ def getSchools():
 def prettier(sportDict):
   returnStr = ''
   for key, value in sportDict.items():
-    returnStr = returnStr + key + '\n'
+    returnStr = returnStr + '**' + key + '**\n'
     for item in value:
       returnStr = returnStr + item
     returnStr = returnStr + '\n'
