@@ -18,7 +18,9 @@ Place within the GitHub directory, desiredChannelID is channelID where bot error
 ```
 from bot import bot
 
-bot.botChannelID = desiredChannelID
+bot.botChannelID = [desired channel id as number]
+bot.defaultGid = [desired default gid as string]
+
 bot.run("TOKEN_GOES_HERE")
 ```
 
