@@ -5,7 +5,19 @@ from bs4 import BeautifulSoup
 import discord
 from discord.ext import commands
 
-def getScores(sport, gid='msu', now=False):
+# Instantiates bot object
+bot = commands.Bot(command_prefix='!', intents=discord.Intents.all(), help_command=None)
+
+# Establishes default values to be overridden in main.py
+bot.botChannelID = None
+bot.defaultGid = ''
+
+''' Helper functions for bot '''
+
+# Gets scores for given sport and team
+# If sport is all, gets all sports
+# If now is true, only gets ongoing games
+def getScores(sport, gid, now=False):
   r = requests.get('https://statbroadcast.com/events/statmonitr.php?gid=' + gid)
 
   soup = BeautifulSoup(r.content, 'html.parser')
@@ -35,6 +47,7 @@ def getScores(sport, gid='msu', now=False):
 
   return sportDict
 
+# Gets all available schools from statbroadcast to fill bot.schoolDict
 def getSchools():
   r = requests.get('https://www.statbroadcast.com/events/all.php')
 
@@ -49,6 +62,7 @@ def getSchools():
   schoolDict.pop('test', None)
   return schoolDict
 
+# Formats message to look nice in Discord
 def prettier(sportDict):
   returnStr = ''
   for key, value in sportDict.items():
@@ -59,12 +73,10 @@ def prettier(sportDict):
 
   return returnStr
 
+''' Bot Events '''
 
-bot = commands.Bot(command_prefix='!', intents=discord.Intents.all(), help_command=None)
 
-bot.schoolDict = {}
-bot.botChannelID = None
-
+# Sets up bot and messages bot channel that it is online
 @bot.event
 async def on_ready():
   bot.channel = bot.get_channel(bot.botChannelID)
@@ -72,6 +84,7 @@ async def on_ready():
 
   await bot.channel.send(f'{bot.user.name} is online!')
 
+# Sends error message to bot chonnel, on error
 @bot.event
 async def on_command_error(message, error):
   if message.message.content[1] == '!':
@@ -84,24 +97,30 @@ async def on_command_error(message, error):
 
   await bot.channel.send(str(error) + '\n\nCommand: ' + message.message.content)
   
+# Gets the score for the default gid and given sport (or all sports) and returns as message
 @bot.command(name='score') 
 async def score(message, sport='all'):
-  returnStr = prettier(getScores(sport=sport))
+  returnStr = prettier(getScores(sport=sport, gid=bot.defaultGid))
   if returnStr == '':
     returnStr = 'No Scores Available'
   
   await message.send(returnStr)
 
+# Gets the score for the default gid and given sport (or all sports) that are currently ongoing and returns as message
 @bot.command(name='nowScore')
 async def nowScore(message, sport='all'):
-  returnStr = prettier(getScores(sport=sport, now=True))
+  returnStr = prettier(getScores(sport=sport, gid=bot.defaultGid, now=True))
   if returnStr == '':
     returnStr = 'No Scores Available'
 
   await message.send(returnStr)
 
+# Gets the score for another team (defaults to default gid) and given sport (or all sports) and returns as message
 @bot.command(name='otherScore')
-async def otherScore(message, gid='msu', sport='all'):
+async def otherScore(message, gid='', sport='all'):
+  if gid == '':
+    gid = bot.defaultGid
+
   if gid.lower() in bot.schoolDict:
     returnStr = prettier(getScores(sport=sport, gid=gid))
     if returnStr == '':
@@ -111,16 +130,12 @@ async def otherScore(message, gid='msu', sport='all'):
   else:
     await message.send('Not a Valid School GID, Check statbroadcast.com/events/all.php')
 
-@bot.command(name='steve')
-async def steve(message):
-  await message.send('Yes')
-
+# Returns as message, descriptions for each command available with formatting
 @bot.command(name='help')
 async def help(message):
-  helpDict = {'score': 'Gets all recent and ongoing scores for MSU sports, add sport name to get only scores for that sport (example: !score basketball)\n\n',
-              'nowScore': 'Gets all ongoing scores for MSU sports, add sport name to get only scores for that sport (example: !nowScore hockey)\n\n',
-              'otherScore': 'Gets all ongoing scores for a given school\'s Sports, add sport name to get only scores for that sport (example: !otherScore msu football)\n    school name must be equal to the \'gid\' given by the school\'s relevant statbroadcast page, the list of schools can be found at statbroadcast.com/events/all.php\n\n',
-              'steve': 'Says whether or not Steve has made a fieldgoal'}
+  helpDict = {'score': 'Gets all recent and ongoing scores for ' + bot.defaultGid + ' sports, add sport name to get only scores for that sport (example: !score basketball)\n\n',
+              'nowScore': 'Gets all ongoing scores for ' + bot.defaultGid + ' sports, add sport name to get only scores for that sport (example: !nowScore hockey)\n\n',
+              'otherScore': 'Gets all ongoing scores for a given school\'s Sports, add sport name to get only scores for that sport (example: !otherScore msu football)\n    school name must be equal to the \'gid\' given by the school\'s relevant statbroadcast page, the list of schools can be found at statbroadcast.com/events/all.php'}
   
   returnStr = '```help:\n'
   for helpCommand, helpDesc in helpDict.items():
