@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 import discord
 from discord.ext import commands
 
+''' Bot setup '''
+
 # Instantiates bot object
 bot = commands.Bot(command_prefix='!', intents=discord.Intents.all(), help_command=None)
 
