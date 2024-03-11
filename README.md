@@ -4,36 +4,38 @@ Clone GitHub Repo
 
 Follow the steps [here](https://www.howtogeek.com/364225/how-to-make-your-own-discord-bot/) to create a Discord Bot account and get a token
 
-## Python Dependencies 
+## Python Dependencies
 
 Made using Python 3.11, may or may not work with other versions
+
 ```
-pip install beautifulsoup4
-pip install requests
+pip3 install beautifulsoup4 requests discord
 ```
 
 ## main.py
 
-Place within the GitHub directory, desiredChannelID is channelID where bot errors and wake-up message will be displayed 
-```
-from bot import bot
+Change default values to match your information:
 
-bot.botChannelID = [desired channel id as number]
-bot.defaultGid = [desired default gid as string]
+-   desiredChannelID is the channel id, as a number, where specific bot errors and wake-up message will be displayed
 
-bot.run("TOKEN_GOES_HERE")
-```
+-   defaultGid is the default id, as a string, that the bot will use to fetch scores when none is provided
 
-## Allow main.py to be executable
+-   Place your discord bot token, as a string, for the parameter in `bot.run(...)`
 
-Linux example
-```
-sudo chmod +x main.py
-```
+## bot.py
+
+Includes any bot commands that can be called by a Discord user
+
+Feel free to change the `command_prefix`, `intents`, and `help_command` as desired within the arguments of the `Bot` constructor
+
+## helpers.py
+
+Includes any helper functions used by the bot. New functions used in `bot.py` must be imported
 
 ## Keep it Running
 
 Find your own way to keep the discord bot running. There are services to do this for you for cheap, I personally use a Raspberry Pi with the following bash command for simplicity
+
 ```
 botStart() {
   pkill -f main.py;
