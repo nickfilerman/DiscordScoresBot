@@ -14,7 +14,18 @@ pip3 install beautifulsoup4 requests discord
 
 ## main.py
 
-Change default values to match your information:
+Create `main.py` file within the project's root directory
+
+```
+from bot import bot
+
+bot.botChannelID = 0
+bot.defaultGid = ''
+
+bot.run('')
+```
+
+Change the default values to match your information:
 
 -   desiredChannelID is the channel id, as a number, where specific bot errors and wake-up message will be displayed
 
