@@ -53,7 +53,7 @@ Gets the score for the default gid and given sport (or all sports) that are curr
 :param message: The message and relevant information provided with the message
 :param sport: What sport to filter the scores for, default is "all" if you want all sports
 '''
-@bot.hybrid_command(name='nowScore')
+@bot.hybrid_command(name='now_score')
 async def nowScore(message, sport='all'):
   returnStr = prettier(getScores(sport=sport, gid=bot.defaultGid, now=True))
   if returnStr == '':
@@ -68,7 +68,7 @@ Gets the score for another team (defaults to default gid) and given sport (or al
 :param gid: What gid to get the scores from, gets set to bot.defaultGid if nothing is passed
 :param sport: What sport to filter the scores for, default is "all" if you want all sports
 '''
-@bot.hybrid_command(name='otherScore')
+@bot.hybrid_command(name='other_score')
 async def otherScore(message, gid='', sport='all'):
   if gid == '':
     gid = bot.defaultGid
