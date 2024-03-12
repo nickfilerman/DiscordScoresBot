@@ -4,6 +4,12 @@ Clone GitHub Repo
 
 Follow the steps [here](https://www.howtogeek.com/364225/how-to-make-your-own-discord-bot/) to create a Discord Bot account and get a token
 
+## Dev Containers
+
+If you would like to use a dev container, feel free to use the pre-supplied `.devcontainer/devcontainer.json`
+
+This will automatically install Python 3.11 along with the necessary packages, as well as create the template `main.py` file
+
 ## Python Dependencies
 
 Made using Python 3.11, may or may not work with other versions

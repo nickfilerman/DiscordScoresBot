@@ -1,0 +1,8 @@
+{
+	"name": "DiscordScoresBot",
+	"image": "mcr.microsoft.com/devcontainers/python:1-3.11-bookworm",
+	"onCreateCommand": {
+		"dependencies": "pip3 install beautifulsoup4 requests discord",
+		"main": "[ -e \"main.py\" ] || printf \"from bot import bot\n\nbot.botChannelID = 0\nbot.defaultGid = ''\n\nbot.run('')\n\" > main.py"
+	}
+}
