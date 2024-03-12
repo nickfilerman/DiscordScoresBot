@@ -47,7 +47,10 @@ Gets the score for the default gid and given sport (or all sports) and returns a
 :param sport: What sport to filter the scores for, default is "all" if you want all sports
 '''
 @bot.tree.command(name='score') 
-async def score(message, sport='all'):
+async def score(message, sport: str):
+  if not sport or sport == '':
+    sport = 'all'
+
   returnStr = prettier(getScores(sport=sport, gid=bot.defaultGid))
   if returnStr == '':
     returnStr = 'No Scores Available'
@@ -61,7 +64,10 @@ Gets the score for the default gid and given sport (or all sports) that are curr
 :param sport: What sport to filter the scores for, default is "all" if you want all sports
 '''
 @bot.tree.command(name='nowScore')
-async def nowScore(message, sport='all'):
+async def nowScore(message, sport: str):
+  if not sport or sport == '':
+    sport = 'all'
+
   returnStr = prettier(getScores(sport=sport, gid=bot.defaultGid, now=True))
   if returnStr == '':
     returnStr = 'No Scores Available'
@@ -76,9 +82,12 @@ Gets the score for another team (defaults to default gid) and given sport (or al
 :param sport: What sport to filter the scores for, default is "all" if you want all sports
 '''
 @bot.tree.command(name='otherScore')
-async def otherScore(message, gid='', sport='all'):
-  if gid == '':
+async def otherScore(message, gid: str, sport: str):
+  if not gid or gid == '':
     gid = bot.defaultGid
+
+  if not sport or sport == '':
+    sport = 'all'
 
   if gid.lower() in bot.schoolDict:
     returnStr = prettier(getScores(sport=sport, gid=gid))
