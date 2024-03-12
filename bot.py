@@ -7,19 +7,14 @@ from discord.ext import commands
 bot = commands.Bot(command_prefix='!', intents=discord.Intents.all(), help_command=None)
 
 '''
-Sets up bot, syncs slash (hybrid) commands, and messages bot channel that it is online
+Sets up bot and messages bot channel that it is online
 '''
 @bot.event
 async def on_ready():
   bot.channel = bot.get_channel(bot.botChannelID)
   bot.schoolDict = getSchools()
 
-  try:
-    synced = await bot.tree.sync()
-    await bot.channel.send(f'{bot.user.name} is online! Synced {len(synced)} commands')
-
-  except Exception as e:
-   await bot.channel.send('Error syncing')
+  await bot.channel.send(f'{bot.user.name} is online!')
 
 '''
 Sends error message to bot chonnel, on error
@@ -38,6 +33,23 @@ async def on_command_error(ctx, error):
     await ctx.send('An Error Occurred. It is Likely that No Scores are Available at This Time')
 
   await bot.channel.send(str(error) + '\n\nCommand: ' + ctx.message.content)
+
+'''
+Syncs hybrid_commands with Discord to use for slash commands (validates user first)
+
+:param ctx: The context surrounding the message sent to request syncing
+'''
+@bot.command(name='sync')
+async def sync(ctx: commands.Context):
+  if ctx.permissions == discord.Permissions.administrator:
+    try:
+      synced = await bot.tree.sync()
+      await bot.channel.send(f'Synced {len(synced)} commands')
+
+    except Exception as e:
+     await bot.channel.send('Error syncing')
+  else:
+    await ctx.send('Command "bingbong" is not found')
   
 '''
 Gets the score for the default gid and given sport (or all sports) and returns as message
