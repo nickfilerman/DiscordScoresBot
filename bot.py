@@ -41,7 +41,7 @@ Syncs hybrid_commands with Discord to use for slash commands (validates user fir
 '''
 @bot.command(name='sync')
 async def sync(ctx: commands.Context):
-  if discord.Permissions.administrator in ctx.permissions:
+  if (ctx.permissions.administrator):
     try:
       synced = await bot.tree.sync()
       await bot.channel.send(f'Synced {len(synced)} commands')
