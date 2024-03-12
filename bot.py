@@ -63,7 +63,7 @@ Gets the score for the default gid and given sport (or all sports) that are curr
 :param message: The message and relevant information provided with the message
 :param sport: What sport to filter the scores for, default is "all" if you want all sports
 '''
-@bot.tree.command(name='nowScore')
+@bot.tree.command(name='now_score')
 async def now_score(message, sport: str):
   if not sport or sport == '':
     sport = 'all'
@@ -81,7 +81,7 @@ Gets the score for another team (defaults to default gid) and given sport (or al
 :param gid: What gid to get the scores from, gets set to bot.defaultGid if nothing is passed
 :param sport: What sport to filter the scores for, default is "all" if you want all sports
 '''
-@bot.tree.command(name='otherScore')
+@bot.tree.command(name='other_score')
 async def other_score(message, gid: str, sport: str):
   if not gid or gid == '':
     gid = bot.defaultGid
