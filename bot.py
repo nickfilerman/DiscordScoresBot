@@ -41,7 +41,7 @@ Syncs hybrid_commands with Discord to use for slash commands (validates user fir
 '''
 @bot.command(name='sync')
 async def sync(ctx: commands.Context):
-  if ctx.permissions == discord.Permissions.administrator:
+  if discord.Permissions.administrator in ctx.permissions.contains:
     try:
       synced = await bot.tree.sync()
       await bot.channel.send(f'Synced {len(synced)} commands')
@@ -49,7 +49,7 @@ async def sync(ctx: commands.Context):
     except Exception as e:
      await bot.channel.send('Error syncing')
   else:
-    await ctx.send('Command "bingbong" is not found')
+    await ctx.send('Command "sync" is not found')
   
 '''
 Gets the score for the default gid and given sport (or all sports) and returns as message
