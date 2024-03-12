@@ -14,7 +14,7 @@ async def on_ready():
   bot.schoolDict = getSchools()
 
   try:
-    synced = await bot.tree.sync()
+    synced = await bot.tree.sync(guild=discord.Object(id=bot.serverId))
     await bot.channel.send(f'{bot.user.name} is online! Synced {len(synced)} commands')
 
   except:
