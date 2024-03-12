@@ -51,7 +51,7 @@ Includes any helper functions used by the bot. New functions used in `bot.py` mu
 
 ## Keep it Running
 
-Find your own way to keep the discord bot running. There are services to do this for you for cheap, I personally use a Raspberry Pi with the following bash command for simplicity
+Find your own way to keep the discord bot running. There are services to do this for you for cheap, You can use the provided Dockerfile if you would like. I personally use a Raspberry Pi with the following bash command for simplicity
 
 ```
 botStart() {
