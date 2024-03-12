@@ -14,13 +14,11 @@ async def on_ready():
   bot.schoolDict = getSchools()
 
   try:
-    await bot.tree.sync()
-    await bot.channel.send(f'{bot.user.name} is online!')
+    synced = await bot.tree.sync()
+    await bot.channel.send(f'{bot.user.name} is online! Synced {len(synced)} commands')
 
   except:
    await bot.channel.send('Error syncing')
-
-  await bot.channel.send(f'{bot.user.name} is online!')
 
 '''
 Sends error message to bot chonnel, on error
