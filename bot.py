@@ -13,6 +13,13 @@ async def on_ready():
   bot.channel = bot.get_channel(bot.botChannelID)
   bot.schoolDict = getSchools()
 
+  try:
+    await bot.tree.sync()
+    await bot.channel.send(f'{bot.user.name} is online!')
+
+  except:
+   await bot.channel.send('Error syncing')
+
   await bot.channel.send(f'{bot.user.name} is online!')
 
 '''
@@ -39,7 +46,7 @@ Gets the score for the default gid and given sport (or all sports) and returns a
 :param message: The message and relevant information provided with the message
 :param sport: What sport to filter the scores for, default is "all" if you want all sports
 '''
-@bot.hybrid_command(name='score') 
+@bot.tree.command(name='score') 
 async def score(message, sport='all'):
   returnStr = prettier(getScores(sport=sport, gid=bot.defaultGid))
   if returnStr == '':
@@ -53,7 +60,7 @@ Gets the score for the default gid and given sport (or all sports) that are curr
 :param message: The message and relevant information provided with the message
 :param sport: What sport to filter the scores for, default is "all" if you want all sports
 '''
-@bot.hybrid_command(name='now_score')
+@bot.tree.command(name='nowScore')
 async def nowScore(message, sport='all'):
   returnStr = prettier(getScores(sport=sport, gid=bot.defaultGid, now=True))
   if returnStr == '':
@@ -68,7 +75,7 @@ Gets the score for another team (defaults to default gid) and given sport (or al
 :param gid: What gid to get the scores from, gets set to bot.defaultGid if nothing is passed
 :param sport: What sport to filter the scores for, default is "all" if you want all sports
 '''
-@bot.hybrid_command(name='other_score')
+@bot.tree.command(name='otherScore')
 async def otherScore(message, gid='', sport='all'):
   if gid == '':
     gid = bot.defaultGid
@@ -87,7 +94,7 @@ Returns as message, descriptions for each command available with formatting
 
 :param message: The message and relevant information provided with the message
 '''
-@bot.hybrid_command(name='help')
+@bot.tree.command(name='help')
 async def help(message):
   helpDict = {'score': 'Gets all recent and ongoing scores for ' + bot.defaultGid + ' sports, add sport name to get only scores for that sport (example: !score basketball)\n\n',
               'nowScore': 'Gets all ongoing scores for ' + bot.defaultGid + ' sports, add sport name to get only scores for that sport (example: !nowScore hockey)\n\n',
