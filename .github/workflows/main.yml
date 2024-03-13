@@ -11,4 +11,4 @@ jobs:
     - shell: bash
       run: source ~/.bashrc
     - shell: bash
-      run: botBuild
+      run: ./rebuild.sh
