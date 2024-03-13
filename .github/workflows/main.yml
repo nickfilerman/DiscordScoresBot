@@ -14,5 +14,9 @@ jobs:
         run: cp ~/actions-runner/_work/DiscordScoresBot/DiscordScoresBot/*.py ~/DiscordScoresBot
       - name: End currently running process
         run: sudo pkill -f main.py
-      - name: Start new process
-        run: python3 ~/DiscordScoresBot/main.py > /dev/null 2>&1
+  run:
+    runs-on: self-hosted
+
+    steps:
+      - name: Run new process
+        run: nohup python3 location/to/directory/main.py &
