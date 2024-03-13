@@ -15,4 +15,4 @@ jobs:
       - name: End currently running process
         run: sudo pkill -f main.py
       - name: Start new process
-        run: nohup python3 ~/DiscordScoresBot/main.py &
+        run: python3 ~/DiscordScoresBot/main.py > /dev/null 2>&1
