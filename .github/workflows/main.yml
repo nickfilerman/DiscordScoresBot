@@ -13,6 +13,6 @@ jobs:
       - name: Copy files to correct folder
         run: cp ~/actions-runner/_work/DiscordScoresBot/DiscordScoresBot/*.py ~/DiscordScoresBot
       - name: End currently running process
-        run: pkill -f main.py
+        run: sudo pkill -f main.py
       - name: Start new process
         run: python3 ./main.py
