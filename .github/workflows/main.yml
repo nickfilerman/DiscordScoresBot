@@ -9,10 +9,10 @@ jobs:
     runs-on: self-hosted
         
     steps:
-      - uses: actions/checkout@v2
-      - name: Move rebuild script
-        run: cp ~/rebuild.sh ./rebuild.sh
-      - name: Make rebuild script runnable
-        run: chmod +x rebuild.sh
-      - name: Run rebuild script
-        run: ./rebuild.sh
+      - uses: actions/checkout@v4
+      - name: Copy files to correct folder
+        run: cp ~/actions-runner/_work/DiscordScoresBot/DiscordScoresBot/*.py ~/DiscordScoresBot
+      - name: End currently running process
+        run: pkill -f main.py
+      - name: Start new process
+        run: python3 ./main.py
