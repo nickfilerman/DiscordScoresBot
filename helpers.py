@@ -9,7 +9,7 @@ Gets matchups and scores for given sport and team gid, either current or recent,
 :param now: True to only show ongoing games
 :return: Dictionary, with the sport as the key, and the matches and scores as the value
 '''
-def getScores(sport, gid, now=False):
+def getScores(sport: str, gid: str, now: bool=False) -> dict[str, str]:
   r = requests.get('https://statbroadcast.com/events/statmonitr.php?gid=' + gid)
 
   soup = BeautifulSoup(r.content, 'html.parser')
@@ -44,7 +44,7 @@ Gets all available schools from statbroadcast to fill bot.schoolDict
 
 :return: Dictionary, with the school's gid as the key, and the school's name as the value
 '''
-def getSchools():
+def getSchools() -> dict[str, str]:
   r = requests.get('https://www.statbroadcast.com/events/all.php')
 
   soup = BeautifulSoup(r.content, 'html.parser')
@@ -64,7 +64,7 @@ Formats message to look nice in Discord
 :param sportDict: Dictionary, with the sport as the key, and the matches and scores as the value
 :return: A formatted string that will look nice in Discord as a message displaying the matches and scores by sport
 '''
-def prettier(sportDict):
+def prettier(sportDict: dict[str, str]) -> str:
   returnStr = ''
   for key, value in sportDict.items():
     returnStr = returnStr + '**' + key + '**\n'
