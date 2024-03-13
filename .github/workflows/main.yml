@@ -9,4 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - shell: bash
+      run: source ~/.bashrc
+    - shell: bash
       run: botBuild
