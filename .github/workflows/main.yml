@@ -12,5 +12,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Move rebuild script
         run: cp ~/rebuild.sh ./rebuild.sh
-      - name: Check rebuild script exists
-        run: ls -a
+      - name: Make rebuild script runnable
+        run: chmod +x rebuild.sh
+      - name: Run rebuild script
+        run: ./rebuild.sh
