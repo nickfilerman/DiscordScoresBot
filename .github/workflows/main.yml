@@ -19,4 +19,4 @@ jobs:
 
     steps:
       - name: Run new process
-        run: nohup python3 location/to/directory/main.py &
+        run: nohup python3 ~/DiscordScoresBot/main.py &
