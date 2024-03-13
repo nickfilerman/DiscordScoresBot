@@ -10,5 +10,7 @@ jobs:
         
     steps:
       - uses: actions/checkout@v2
-      - name: Run rebuild script
+      - name: Move rebuild script
+        run: cp ~/rebuild.sh ./rebuild.sh
+      - name: Check rebuild script exists
         run: ls -a
