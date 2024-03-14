@@ -32,12 +32,8 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Relocate to bot directory
-        run: cd ~/DiscordScoresBot
-      - name: Check location
-        run: ls -a
       - name: Build new container
-        run: sudo docker build -t discord-scores-bot .
+        run: sudo docker build -t discord-scores-bot ~/DiscordScoresBot
 
   run:
     needs: build
