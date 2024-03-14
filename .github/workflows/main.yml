@@ -24,8 +24,6 @@ jobs:
     steps:
       - name: Stop current container
         run: sudo docker stop discord-scores-bot
-      - name: Check location
-        run: ls -a
       - name: Remove current container
         run: sudo docker rm discord-scores-bot
 
@@ -36,6 +34,8 @@ jobs:
     steps:
       - name: Relocate to bot directory
         run: cd ~/DiscordScoresBot
+      - name: Check location
+        run: ls -a
       - name: Build new container
         run: sudo docker build -t discord-scores-bot .
 
