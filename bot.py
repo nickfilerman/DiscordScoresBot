@@ -14,7 +14,7 @@ async def on_ready():
   bot.channel = bot.get_channel(bot.botChannelID)
   bot.schoolDict = getSchools()
 
-  await bot.channel.send(f'{bot.user.name} is online!')
+  await bot.channel.send(f'{bot.user.name} is online!!')
 
 '''
 Sends error message to bot chonnel, on error
