@@ -2,19 +2,21 @@ name: Main Workflow
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   clone:
-
     runs-on: self-hosted
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Copy Python files to correct folder
         run: cp ~/actions-runner/_work/DiscordScoresBot/DiscordScoresBot/*.py ~/DiscordScoresBot
+
       - name: Copy Dockerfile to correct folder
         run: cp ~/actions-runner/_work/DiscordScoresBot/DiscordScoresBot/Dockerfile ~/DiscordScoresBot
+
       - name: Start Docker
         run: sudo systemctl start docker
 
@@ -25,8 +27,10 @@ jobs:
     steps:
       - name: Prune deprecated docker data
         run: sudo docker system prune -f
+
       - name: Stop current container
         run: sudo docker stop discord-scores-bot
+
       - name: Remove current container
         run: sudo docker rm discord-scores-bot
 
