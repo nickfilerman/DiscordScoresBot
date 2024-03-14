@@ -14,11 +14,33 @@ jobs:
         run: cp ~/actions-runner/_work/DiscordScoresBot/DiscordScoresBot/*.py ~/DiscordScoresBot
       - name: Copy Dockerfile
         run: cp ~/actions-runner/_work/DiscordScoresBot/DiscordScoresBot/Dockerfile ~/DiscordScoresBot
+      - name: Relocate to bot directory
+        run: cd ~/DiscordScoresBot
+      - name: Start Docker
+        run: sudo systemctl start docker
         
-  run:
+  destroy:
     needs: clone
     runs-on: self-hosted
 
     steps:
-      - name: Build and run container
-        run: ~/DiscordScoresBot/rebuild.sh
+      - name: Stop current container
+        run: sudo docker stop discord-scores-bot
+      - name: Remove current container
+        run: sudo docker rm discord-scores-bot
+
+  build:
+    needs: destroy
+    runs-on: self-hosted
+
+    steps:
+      - name: Build new container
+        run: sudo docker build -t discord-scores-bot .
+
+  run:
+    needs: build
+    runs-on: self-hosted
+
+    steps:
+      - name: Run new container
+        run: sudo docker run -d --name discord-scores-bot discord-scores-bot
