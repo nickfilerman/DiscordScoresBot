@@ -17,7 +17,7 @@ def getScores(sport: str, gid: str, now: bool=False) -> dict[str, str]:
   s = soup.find('table', class_='table table-sm border border-secondary')
   s2 = s.find('tbody')
 
-  classList = ['', 'bg-less-dark', 'text-muted', 'text-double-muted']
+  classList = ['', 'bg-primary', 'bg-less-dark', 'text-muted', 'text-double-muted']
   if now:
     classList = ['bg-primary']
 
