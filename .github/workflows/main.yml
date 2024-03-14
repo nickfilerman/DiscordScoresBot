@@ -17,5 +17,6 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - shell: bash
-        run: ~/DiscordScoresBot/rebuild.sh
+      - name: End old process and start new process
+        run: |
+          ~/DiscordScoresBot/rebuild.sh
