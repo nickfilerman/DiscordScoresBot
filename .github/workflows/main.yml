@@ -22,6 +22,8 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - name: Prune deprecated docker data
+        run: sudo docker system prune -f
       - name: Stop current container
         run: sudo docker stop discord-scores-bot
       - name: Remove current container
