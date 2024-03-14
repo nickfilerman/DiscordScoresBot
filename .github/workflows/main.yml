@@ -14,8 +14,6 @@ jobs:
         run: cp ~/actions-runner/_work/DiscordScoresBot/DiscordScoresBot/*.py ~/DiscordScoresBot
       - name: Copy Dockerfile
         run: cp ~/actions-runner/_work/DiscordScoresBot/DiscordScoresBot/Dockerfile ~/DiscordScoresBot
-      - name: Relocate to bot directory
-        run: cd ~/DiscordScoresBot
       - name: Start Docker
         run: sudo systemctl start docker
         
@@ -34,6 +32,8 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - name: Relocate to bot directory
+        run: cd ~/DiscordScoresBot
       - name: Build new container
         run: sudo docker build -t discord-scores-bot .
 
