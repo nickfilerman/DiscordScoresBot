@@ -4,16 +4,19 @@ on:
   push:
     branches: [ main ]
 jobs:
-  build:
+  clone:
   
     runs-on: self-hosted
         
     steps:
       - uses: actions/checkout@v4
-      - name: Copy files to correct folder
+      - name: Copy python files to correct folder
         run: cp ~/actions-runner/_work/DiscordScoresBot/DiscordScoresBot/*.py ~/DiscordScoresBot
+      - name: Copy Dockerfile
+        run: cp ~/actions-runner/_work/DiscordScoresBot/DiscordScoresBot/Dockerfile ~/DiscordScoresBot
+        
   run:
-    needs: build
+    needs: clone
     runs-on: self-hosted
 
     steps:
