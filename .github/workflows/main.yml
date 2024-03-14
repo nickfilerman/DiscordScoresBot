@@ -11,9 +11,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Copy python files to correct folder
+      - name: Copy Python files to correct folder
         run: cp ~/actions-runner/_work/DiscordScoresBot/DiscordScoresBot/*.py ~/DiscordScoresBot
-      - name: Copy Dockerfile
+      - name: Copy Dockerfile to correct folder
         run: cp ~/actions-runner/_work/DiscordScoresBot/DiscordScoresBot/Dockerfile ~/DiscordScoresBot
       - name: Start Docker
         run: sudo systemctl start docker
