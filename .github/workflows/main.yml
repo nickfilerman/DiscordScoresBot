@@ -20,4 +20,4 @@ jobs:
 
     steps:
       - name: Run new process
-        run: nohup python3 ~/DiscordScoresBot/main.py < /dev/null & > /dev/null &
+        run: ~/DiscordScoresBot/rebuild.sh
