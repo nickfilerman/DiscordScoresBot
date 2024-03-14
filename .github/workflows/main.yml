@@ -24,6 +24,8 @@ jobs:
     steps:
       - name: Stop current container
         run: sudo docker stop discord-scores-bot
+      - name: Check location
+        run: ls -a
       - name: Remove current container
         run: sudo docker rm discord-scores-bot
 
